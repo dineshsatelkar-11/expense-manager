@@ -41,6 +41,15 @@ public class ExpenseServiceController {
 	private IExpenseService expenseService;
 
 	/**
+	 * Instantiates a new expense service controller.
+	 *
+	 * @param expenseService the expense service
+	 */
+	public ExpenseServiceController(IExpenseService expenseService) {
+		this.expenseService = expenseService;
+	}
+
+	/**
 	 * Adds the expense.
 	 *
 	 * @param expenseDto the expense dto
@@ -54,12 +63,16 @@ public class ExpenseServiceController {
 			throws Exception {
 		return expenseService.addExpense(expenseDto);
 	}
-	
-	
+
+	/**
+	 * Gets the expense.
+	 *
+	 * @return the expense
+	 * @throws Exception the exception
+	 */
 	@ApiOperation(value = "Get Total  Expense")
 	@GetMapping("/getTotalExpense")
-	public Double getExpense( )
-			throws Exception {		
+	public Double getExpense() throws Exception {
 		return expenseService.getTotalExpense();
 	}
 
@@ -95,7 +108,7 @@ public class ExpenseServiceController {
 		List<ExpenseDto> expenses = expenseService.getAllExpenseByCategoryName(categoryName);
 		if (expenses == null)
 			throw new ResourceNotFoundException("These Category is not Present in Database :: " + categoryName);
-		
+
 		if (expenses.size() == 0)
 			throw new ResourceNotFoundException("Expense  not found for this Category :: " + categoryName);
 		return new ResponseEntity<List<ExpenseDto>>(expenses, HttpStatus.OK);
@@ -143,7 +156,7 @@ public class ExpenseServiceController {
 	/**
 	 * Gets the all expense dtobetween date.
 	 *
-	 * @param afterDate the after date
+	 * @param afterDate  the after date
 	 * @param beforeDate the before date
 	 * @return the all expense dtobetween date
 	 * @throws Exception the exception
